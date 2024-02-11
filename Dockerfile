@@ -1,3 +1,15 @@
-FROM node:alpine
+FROM node:18
 
-WORKDIR /usr/src/app
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build 
+
+CMD [ "npm", "run", "start:dev" ]
+
+EXPOSE 8080
