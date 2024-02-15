@@ -1,1 +1,21 @@
 version: '2'
+services:
+  nest-app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+  postgres:
+    image: postgres
+    environment:
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_HOST=${DATABASE_HOST}
+    restart: always
+    ports:
+      - '5432:5432'
